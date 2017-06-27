@@ -1,10 +1,11 @@
 from pprint import pprint as pp
-import requests
 import datetime
+import requests
+import sys
 
-station = "S01514"
+station = sys.argv[1]
 dt = datetime.datetime.utcnow()
-partenze_arrivi="arrivi";
+partenze_arrivi=sys.argv[2] #partenze o arrivi
 
 url = "http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/{partenze_arrivi}/{station}/{iso}"
 with requests.Session() as s:

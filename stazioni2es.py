@@ -6,6 +6,7 @@ from elasticsearch import Elasticsearch
 es = Elasticsearch()
 
 regione = sys.argv[1]
+azione = sys.argv[2]
 
 stazionicsv = 'data/stazioni-%s.json'  % regione
 
@@ -16,6 +17,12 @@ with open(stazionicsv) as data_file:
   for entry in data:
     id = "%s-%s" % (entry["codReg"],entry["codStazione"])
     #entry["id"] = id
-    logging.warning("Indexing %s - %s" % (id, entry["localita"]["nomeLungo"]))
-    es.index(index="grafo", doc_type=u"trenitalia_stazione", id=id, body=entry)
+    logging.warning("stazione %s - %s" % (id, entry["localita"]["nomeLungo"]))
+    if azione == "es":
+      es.index(index="grafo", doc_type=u"trenitalia_stazione", id=id, body=entry)
+    else:
+        print("%s,%s,%s" % (entry["codReg"],
+                                entry["codStazione"],
+                                entry["localita"]["nomeLungo"]))
+        
 
