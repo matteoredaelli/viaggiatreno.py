@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
-import requests, sys
+# encoding=utf8
+import requests
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 stazione = sys.argv[1]
 codice = sys.argv[2]
+filename = sys.argv[3]
 
 url = "http://www.viaggiatreno.it/viaggiatrenonew/resteasy/viaggiatreno/andamentoTreno/{stazione}/{codice}"
 with requests.Session() as s:
     r = s.get(url.format(stazione=stazione, codice=codice))
-    print(unicode(r.text))
+    with open(filename, "w") as myfile:
+      myfile.write(r.text)
