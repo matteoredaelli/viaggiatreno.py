@@ -3,7 +3,7 @@
 DATE=`date +%Y-%m-%d`
 dir=data/andamento-treni/$DATE
 
-mkdir $dir
+mkdir -p $dir
 cut -f2 -d'|' data/codici-treno.txt | while read line
 do
   treno=$(echo $line|cut -f1 -d'-')
